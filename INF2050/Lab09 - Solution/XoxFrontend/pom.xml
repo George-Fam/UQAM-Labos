@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>ca.uqam.info</groupId>
+  <artifactId>XoxFrontend</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>XoxFrontend</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.release>21</maven.compiler.release>
+  </properties>
+  <repositories>
+        <repository>
+            <id>Max's third party repo on a UQAM GitLab file server</id>
+            <url>https://max.pages.info.uqam.ca/inf2050repo/</url>
+        </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>ca.uqam</groupId>
+      <artifactId>xoxinternals</artifactId>
+      <version>1.7</version>
+    </dependency>
+  </dependencies>
+
+  <profiles>
+      <profile>
+          <id>alice-and-bob</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <mainClass>ca.uqam.info.XoxAliceAndBob</mainClass>
+            </properties>
+      </profile>
+      <profile>
+          <id>eve-and-bob</id>
+          <properties>
+              <mainClass>ca.uqam.info.XoxEveAndBob</mainClass>
+          </properties>
+      </profile>
+  </profiles>
+
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.5.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>java</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <mainClass>${mainClass}</mainClass>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.5.2</version>
+            <configuration>
+                <excludes>
+                    <exclude>**/*IT.java</exclude>
+                </excludes>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>integration-test</id>
+                    <goals>
+                        <goal>test</goal>
+                    </goals>
+                    <phase>integration-test</phase>
+                    <configuration>
+                        <excludes>
+                            <exclude>none</exclude>
+                        </excludes>
+                        <includes>
+                            <include>**/*IT.java</include>
+                        </includes>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+  </build>
+
+</project>
