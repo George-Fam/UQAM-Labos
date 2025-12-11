@@ -1,0 +1,42 @@
+Mission 1
+    Utiliser find ou ls -R ou tree
+    tree -a
+    ls -Ra
+    find . -iname piece*
+    Note Espace donc, mv 'path'
+Mission 2
+Meme concept (plus dur d'utiliser ls ou tree)
+    tree -a | grep -i "*or"
+    ls -Ra | grep -i "*or"
+    find . -iname *or -type f -exec mv {} Foret/Cabane/Coffre/ \;
+    ou
+    find . -iname *or -type f | xargs -I {} mv {} Foret/Cabane/Coffre/
+Mission 3
+    Trouve avec tree puis cd puis head (mal codé)
+    tree
+    cd Montagne/Grotte
+    head -n 4 ingredients_potion
+    gash check
+Mission 4
+    Meme que 1
+    tree -a ou ls -Ra
+Mission 5
+    Meme que 3 mais avec tail
+Mission 6
+    tail -n 8 recette_potion | head -n 3 -
+    ou
+    head -n 11 recette_potion | tail -n 3 -
+Mission 7
+    ps
+    kill id
+    find . -iname *chat -exec rm {} \;
+Mission 8
+    pstree -p | grep felix -A 10
+    kill ...
+    find . -iname *chat -exec rm {} \;
+Mission 9
+    Calculs sur stdin
+Mission 10
+    Redirection stdin
+    gash check < Chateau/Batiment_principal/Bibliotheque/Mathematiques_pour_debutants
+Mission 11

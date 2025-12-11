@@ -1,0 +1,37 @@
+Solutions Lab 8
+1. Adresse Courriel
+- Faites `sudo apt search pdftotext` pour trouver le paquet qui contient ce programme
+- `grep -Eio '[a-z\._�-]+@[a-z\.-]+' professeurs.txt | sort -u > emails.txt`
+	- Peut etre beaucoup plus complexe (ex: TLD, regles)
+	- `grep -Eio '[a-z0-9._%+-]+@[a-0-9.-]+\.[a-z]{2,}' professeurs.txt | sort -u > emails.txt`
+	- Standard officiel avec addresse IP(RFC 1035) https://www.regular-expressions.info/email.html
+2. RegEx One
+	- Leçons
+		6.	`wazz+up` ou `waz{3,}up`
+		7.	`a{1,}b{0,}c{1,}`
+		8.	`.*\?` ou `\d+ files? found\?`
+		9.	`\d\.\s+abc`
+		10. `^Mission` ou `^Mission: successful$`
+		11.	`(.*)\.pdf$` ou `^(file.+)\.pdf$`
+		12. `(\w+ (\d+))`
+		13. `(\d+)x(\d+)`
+		14. `I love (dogs|cats)`
+		15. `.*`
+	- Problèmes
+		1. `^-?\d+\.?\d+[e,]?\d+\.?\d*$`
+		2. `(\d\s)?\(?(\d{3})\)?[\-\s]?\d{3}[\-\s]?\d{4}`
+		3. `^([\w\.]+)`
+		4. `<(\w+\s?).*>.*</\1>`
+		5.	`(.*).(gif|jpg|png)$`
+		6.	`\s*(.*)` ou `^\s*(.*)\s*$`
+		7.	`(\w+)\(([\w\.]+):(\d+)\)`
+		8.	`(\w+)://([\w\-\.]+)(:(\d+))?`
+3.	Golf
+	1. `foo`
+	2. `ick$` ou `k$`
+	3. `fu\b` ou `u\b`
+	4.	`^[a-f][a-e][a-f][a-f]` ou `[a-f]{4}`
+	5.  `(\w{3}).*\1` ou (...).*\1
+	6.  `^(?!(.)+\1)|ef`
+	7.  `^(.)[^p].*\1$`
+4.

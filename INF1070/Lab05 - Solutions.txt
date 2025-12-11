@@ -1,0 +1,65 @@
+Solutions:
+1. Dict
+	1. Utiliser dictionnaire anglais
+		sudo apt install wcanadian-huge
+	2. Questions
+		1. cat words | wc -l
+			ou wc -l (inclus nom fichier, peut faire wc -l | awk '{print $1}' )
+		2. cat words | grep with | wc -l 
+			ou grep with words | wc -l 
+			ou grep with words -c
+		3. grep ^with words -c
+		4. grep with$ words -c
+		5. grep \'s$
+		Extra:
+			- Crochets ([a,c] ou [a-c])
+			- Négation dans crochet ([^a])
+			- Invert Match (grep -v)
+			- Faire Wordle du jour
+				- grep -v [lettres] fic (lettre non inclus)
+				- grep lettre (lettre inclus)
+				- grep ^.lettre (lettre position ou avec -v pour inverse)
+		6. grep ^T words | column -c 100 > T.txt
+			ou meilleur option: grep ^T words | pr -t -4 > T.txt
+		7. grep '^[A-Z]' words -c et grep '^[A-Z]' words > noms-propres.txt
+2. BD
+	1. Recuperer
+		wget http://download.geonames.org/export/dump/countryInfo.txt \
+		http://download.geonames.org/export/dump/readme.txt \
+		http://download.geonames.org/export/dump/CA.zip \
+		http://download.geonames.org/export/dump/timeZones.txt \
+		https://gitlab.info.uqam.ca/inf1070/labs/-/raw/master/labo05/clean
+		mkdir canada && unzip CA.zip -d canada
+	2.	Nettoyage
+		Si necessaire:
+			chmod +x clean
+			sudo apt install python3 python-is-python3
+		./clean countryInfo.txt > country-clean.txt
+		./clean canada/CA.txt > CA-clean.txt
+	3. Supprimer commentaires
+		grep -v ^# country-clean.txt > country-nocomment.txt
+		grep -v ^# CA-clean.txt > CA-nocomment.txt
+		Grep va supprimer titres de Colonnes, utiliser nvim pour country ou regarder countryInfo. 
+	4. Pays
+		1. cat coutry-nocomment.txt | cut -f 2,8 | sort -nrk 2 | head -n 10 | cut -f 1
+			faire sans option n et r dans sort pour demontrer difference
+		2. cat country-nocomment.txt | cut -f 2,7 | sort -nrk 2 | head -n 20 | cut -f 1
+		3. cat country-nocomment.txt | cut -f 11 | sort -u | wc -l
+			regarder option u de sort
+		4. cat country-nocomment.txt | cut -f 9 | sort | uniq -c
+	5. Canada
+		1. Utiliser timeZones.txt au lieu de CA.txt (montrer cat CA-clean.txt | head -n 10 | cut -f 18)
+			cat timeZones.txt | grep "^CA" | cut -f 3 | sort | uniq -c et cat timeZones.txt | grep "^CA" | cut -f 3 | sort | uniq -c | wc -l
+			Pour moins de commandes:
+				 grep "^CA" timeZones.txt | cut -f 3 | sort | uniq -c et grep "^CA" timeZones.txt | cut -f 3 | sort | uniq -c | wc -l
+			Il existe une facon de le faire en moins de commandes avec awk mais on va pas la voire: awk -F'\t' '$1 ~ /^CA/ {print $3}' timeZones.txt | sort | uniq -c
+		2. cat CA-clean.txt | cut -f 2 | grep Longueuil
+			Reduire:  cut -f 2 CA-clean.txt | grep Longueuil
+			Plus: awk -F'\t' '$2 ~ /Longueuil/' CA-clean.txt
+		3. cut -f 2,19 CA-clean.txt | grep 2018 et/ou cut -f 2,19 CA-clean.txt | grep 2018 | cut -f 1
+		4. Longitude:
+				Min: cat CA-clean.txt | cut -f 5 | sort -n | head -n 1
+				Max: cat CA-clean.txt | cut -f 5 | sort -n | tail -n 1
+			Latitude:
+				Min: cat CA-clean.txt | cut -f 6 | sort -n | head -n 1
+				Max: cat CA-clean.txt | cut -f 6 | sort -n | tail -n 1
