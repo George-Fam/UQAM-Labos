@@ -1,0 +1,27 @@
+{
+  "hosts": [
+    {
+      "alias": "github",
+      "hostname": "github.com",
+      "keyFile": "id_ed25519_github",
+      "keyComment": "votre-username@github",
+      "addKeysToAgent": true,
+      "identitiesOnly": true
+    },
+    {
+      "alias": "gitlabUqam",
+      "hostname": "gitlab.info.uqam.ca",
+      "keyFile": "id_ed25519_gitlab_uqam",
+      "keyComment": "nom.prenom...@courrier.uqam.ca",
+      "addKeysToAgent": true,
+      "identitiesOnly": true
+    }
+  ],
+
+  "tips": {
+    "keyComment": "Le keyComment est intégré dans la clé publique. Utilisez votre email ou un identifiant reconnaissable pour retrouver la clé facilement sur les interfaces web.",
+    "alias": "L'alias est OPTIONNEL. S'il est présent, il remplace le hostname dans les URLs SSH. Ex : git clone git@gitlabUqam:INF2050/tp1.git (au lieu de git@gitlab.info.uqam.ca:...). S'il est absent, le hostname est utilisé directement. Ex : git clone git@gitlab.info.uqam.ca:INF2050/tp1.git",
+    "aliasOmis": "Pour utiliser le hostname directement (sans alias), omettez simplement le champ 'alias' ou laissez-le vide. Exemple : { \"hostname\": \"github.com\", \"keyFile\": \"id_ed25519_github\", \"keyComment\": \"votre-username@github\" }",
+    "idempotence": "Le script est idempotent : si la clé existe déjà, elle ne sera pas écrasée. Si le bloc de config SSH existe déjà, il sera remplacé."
+  }
+}

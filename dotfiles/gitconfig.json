@@ -1,0 +1,95 @@
+{
+  "_comment": "Exemple de configuration pour le générateur de config git de Toolbelt. Copiez ce fichier, puis remplacez les valeurs selon vos préférences. Ce dépôt livre intentionnellement un exemple (pas ma config personnelle).",
+
+  "globalSettings": {
+    "init.defaultBranch": "main",
+    "column.ui": "auto",
+    "branch.sort": "-committerdate",
+    "tag.sort": "version:refname",
+
+    "diff.algorithm": "histogram",
+    "diff.colorMoved": "plain",
+    "diff.mnemonicPrefix": "true",
+    "diff.renames": "true",
+
+    "push.autoSetupRemote": "true",
+    "push.followTags": "true",
+
+    "fetch.prune": "true",
+    "fetch.pruneTags": "true",
+    "fetch.all": "true",
+
+    "help.autocorrect": "prompt",
+    "merge.conflictstyle": "zdiff3"
+  },
+
+  "aliases": {
+    "ac": "commit -am",
+    "br": "branch",
+    "ci": "commit",
+    "co": "checkout",
+    "st": "status",
+    "stashall": "stash push --include-untracked",
+
+    "adog": "log --all --decorate --oneline --graph",
+    "adogt": "log --all --decorate --oneline --graph --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%C(auto)%h %C(bold blue)%ad%Creset %C(auto)%d %C(reset)%s'",
+    "adogr": "log --all --decorate --oneline --graph --date=relative --pretty=format:'%C(auto)%h %C(green)(%cr)%Creset %C(auto)%d %C(reset)%s'",
+    "adoga": "log --all --decorate --oneline --graph --date=relative --pretty=format:'%C(auto)%h %C(green)(%cr)%Creset %C(auto)%d %C(reset)%s %C(dim white)- %an%Creset'"
+  },
+
+  "defaultIdentity": {
+    "name": "Your Name",
+    "email": "you@example.com"
+  },
+
+  "identities": [
+    {
+      "name": "Identité professionnelle (Nom)",
+      "file": ".gitconfig_work",
+      "email": "you@company.net",
+      "patterns": [
+        "git@githubWorkAlias:*",
+        "git@github.com:your-org",
+        "https://github.com/your-org"
+      ]
+    },
+    {
+      "name": "Identité personnelle",
+      "file": ".gitconfig_personal",
+      "email": "you@personal-email.com",
+      "patterns": [
+        "git@githubPersonalAlias:*",
+        "git@github.com:your-user",
+        "https://github.com/your-user"
+      ]
+    }
+  ],
+
+  "largeRepoSettings": {
+    "core.fsmonitor": true,
+    "core.untrackedCache": true
+  },
+
+  "tips": {
+    "patterns": [
+      "Les patterns sont comparés aux URLs des remotes Git configurées (le script utilise remote.*.url, il peut donc correspondre à n'importe quel nom de remote, pas seulement 'origin').",
+      "Utilisez le même format que celui affiché par : git remote get-url origin (SSH, alias hôte SSH ou HTTPS).",
+      "Chaque pattern est l'URL de base jusqu'à l'utilisateur/org inclus. Le script ajoute /** automatiquement pour les dépôts.",
+      "Le segment utilisateur/org peut être un nom précis (ex. : 'your-user') pour ne cibler que ce compte, ou * pour cibler n'importe quel utilisateur/org sur cet hôte ou alias SSH.",
+      "Pour désactiver complètement les identités conditionnelles, mettez 'identities' à un tableau vide : []"
+    ],
+    "usage": [
+      "Ce dépôt livre un exemple de gitconfig.json. Copiez-le et personnalisez-le pour votre environnement.",
+      "Après avoir modifié ce fichier, relancez le script pour (re)générer les fichiers d'identité (ex. : ~/.gitconfig_work) et mettre à jour votre config git globale (~/.gitconfig).",
+      "Si vous utilisez plusieurs remotes (origin/upstream/fork), souvenez-vous que l'outil peut en matcher n'importe laquelle (remote.*.url). Si un dépôt a à la fois un remote de travail et personnel configurés, plusieurs identités pourraient correspondre."
+    ],
+    "largeRepos": [
+      "Si vous lancez le script avec -RepoPath, il applique SEULEMENT les largeRepoSettings à ce dépôt et ignore les paramètres globaux, les aliases et les identités.",
+      "Les largeRepoSettings sont optionnels. Certains paramètres (comme core.fsmonitor) peuvent nécessiter une configuration supplémentaire selon l'OS ou la version de Git."
+    ],
+    "security": [
+      "Ne commitez pas de jetons privés ou d'identifiants dans ce fichier, surtout s'il est dans un dépôt public.",
+      "Les courriels et noms sont généralement corrects à commiter si vous voulez qu'ils soient publics."
+    ]
+  }
+}
