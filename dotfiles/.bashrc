@@ -443,24 +443,28 @@ install_bashrc_support() {
 
     case $dtype in
         "redhat")
-            sudo yum install tree zoxide trash-cli fzf bash-completion fastfetch grc
+            sudo yum install tree zoxide trash-cli fzf bash-completion fastfetch grc neovim tree-sitter-cli
             ;;
         "suse")
-            sudo zypper install tree zoxide trash-cli fzf bash-completion fastfetch grc
+            sudo zypper install tree zoxide trash-cli fzf bash-completion fastfetch grc neovim tree-sitter
             ;;
         "debian")
-            sudo apt-get install tree zoxide trash-cli fzf bash-completion grc
-            # Fetch the latest fastfetch release URL for linux-amd64 deb file
+            sudo apt-get update
+            sudo apt-get install -y tree zoxide trash-cli fzf bash-completion grc tree-sitter-cli libfuse2
+
+            # Latest fastfetch
             FASTFETCH_URL=$(curl -s https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest | grep "browser_download_url.*linux-amd64.deb" | cut -d '"' -f 4)
-
-            # Download the latest fastfetch deb file
             curl -sL $FASTFETCH_URL -o /tmp/fastfetch_latest_amd64.deb
-
-            # Install the downloaded deb file using apt-get
             sudo apt-get install /tmp/fastfetch_latest_amd64.deb
+
+            # Latest Nvim
+            NVIM_URL=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | grep "browser_download_url.*x86_64.deb" | cut -d '"' -f 4)
+            curl -sL $NVIM_URL -o /tmp/nvim.appimage
+            chmod +x /tmp/nvim.appimage
+            sudo mv /tmp/nvim.appimage /usr/local/bin/nvim
             ;;
         "arch")
-            sudo yay -S tree zoxide trash-cli fzf bash-completion fastfetch grc
+            yay -S tree zoxide trash-cli fzf bash-completion fastfetch grc neovim tree-sitter-cli
             ;;
         "slackware")
             echo "No install support for Slackware"
